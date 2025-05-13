@@ -14,7 +14,7 @@ class MessageController extends Controller
      */
     public function index()
     {
-        $messages = Message::where('user_id', '<>', \Auth::id())->orderBy('created_at', 'desc')->paginate(20);
+        $messages = Message::where('user_id', '<>', \Auth::id())->orderBy('created_at', 'desc')->paginate(10);
         return view('messages.index', ['messages' => $messages]);
         // $messages = Message::orderBy('created_at', 'desc')->get();
         // return view('messages.index', ['messages' => $messages]);

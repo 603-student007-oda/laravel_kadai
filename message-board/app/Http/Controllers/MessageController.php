@@ -65,8 +65,8 @@ class MessageController extends Controller
      */
     public function edit(Message $message)
     {
+
         $this->authorize($message);
-        return view('messages.edit', ['message' => $message]);
     }
 
     /**
@@ -82,6 +82,7 @@ class MessageController extends Controller
             'content' => 'required',
         ]);
         $this->authorize($message);
+
         $message->update($request->all());
         return redirect(route('messages.show', $message));
     }
@@ -94,7 +95,9 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+
         $this->authorize($message);
+
         $message->delete();
         return redirect(route('home'));
     }

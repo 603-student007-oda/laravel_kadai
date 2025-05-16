@@ -8,6 +8,7 @@
     <p>
         {{ $message->user->name }}:{{ $message->created_at }}<br>
         {!! nl2br(e($message->content)) !!}<br>
+
         @if($message->user_id == Auth::id())
             <a href="{{ route('messages.show', $message->id) }}">編集</a><br>
         @else

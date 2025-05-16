@@ -3,6 +3,8 @@
 @section('content')
 <h1>メッセージ編集</h1>
 
+@include('commons.flash')
+
 <form action="{{ route('messages.update', $message->id) }}" method="post">
 @method('patch')
 @include('messages.form')

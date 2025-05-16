@@ -45,4 +45,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+    public function likeMessages()
+    {
+        return $this->belongsToMany(Message::class, 'likes')->withTimestamps();
+    }
+
+    public function isLike($message_id)
+    {
+        return $this->likeMessages()->where('messages.id', $message_id)->exists();
+    }
 }

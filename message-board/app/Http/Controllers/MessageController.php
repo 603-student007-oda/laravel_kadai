@@ -39,6 +39,9 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
         $request->user()->messages()->create($request->all());
         return redirect(route('home'));
     }
@@ -62,7 +65,8 @@ class MessageController extends Controller
      */
     public function edit(Message $message)
     {
-        return view('messages.edit', ['message' => $message]);
+
+        $this->authorize($message);
     }
 
     /**
@@ -74,6 +78,11 @@ class MessageController extends Controller
      */
     public function update(Request $request, Message $message)
     {
+        $this->validate($request, [
+            'content' => 'required',
+        ]);
+        $this->authorize($message);
+
         $message->update($request->all());
         return redirect(route('messages.show', $message));
     }
@@ -86,6 +95,9 @@ class MessageController extends Controller
      */
     public function destroy(Message $message)
     {
+
+        $this->authorize($message);
+
         $message->delete();
         return redirect(route('home'));
     }

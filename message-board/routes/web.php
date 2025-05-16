@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MessageController;
-
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,5 +20,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::resource('messages', MessageController::class);
+Route::group(['middleware' => ['auth']], function() {
+    //マイページ
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    //書籍のリソースルート
+    Route::resource('messages', MessageController::class);
+    //いいね関連
+    Route::get('/likes', [LikeController::class, 'index'])->name('likes.index');
+    Route::post('/likes', [LikeController::class, 'store'])->name('likes.store');
+    Route::delete('/likes', [LikeController::class, 'destroy'])->name('likes.destroy');
+});

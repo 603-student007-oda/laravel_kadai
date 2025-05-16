@@ -8,6 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        return view('home.index');
+        $messages = \Auth::user()->messages()->orderBy('created_at','desc')->paginate(10);
+        return view('home.index', ['messages' => $messages]);
     }
 }

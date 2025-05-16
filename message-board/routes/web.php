@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MessageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +21,4 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::resource('messages', MessageController::class);
